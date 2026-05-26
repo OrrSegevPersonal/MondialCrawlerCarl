@@ -1,3 +1,5 @@
+'use client'
+
 import type { MultiplierBreakdown } from '@/types'
 import { formatKickoff } from '@/lib/utils'
 
@@ -31,7 +33,7 @@ export default function MultiplierDisplay({ breakdown }: { breakdown: Multiplier
           <span className="text-white">{Math.round(100 * combined_multiplier)} pts</span>
         </div>
       </div>
-      <div className="mt-2 pt-2 border-t text-slate-600 text-[10px]" style={{ borderColor: 'var(--border-col)' }}>
+      <div className="mt-2 pt-2 border-t text-slate-600 text-[10px]" style={{ borderColor: 'var(--border-col)' }} suppressHydrationWarning>
         Betting closes {formatKickoff(closes_at)} — multiplier locked on submission
       </div>
     </div>
