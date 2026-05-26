@@ -6,9 +6,9 @@ import { getMultiplierBreakdown } from '@/lib/scoring'
 import type { Stage } from '@/types'
 
 const schema = z.object({
-  match_id: z.string().uuid(),
-  predicted_home_score: z.number().int().min(0).max(20),
-  predicted_away_score: z.number().int().min(0).max(20),
+  match_id: z.string().min(1),
+  predicted_home_score: z.number().min(0).max(20),
+  predicted_away_score: z.number().min(0).max(20),
 })
 
 export async function POST(req: NextRequest) {
