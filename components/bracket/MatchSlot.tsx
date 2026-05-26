@@ -13,11 +13,13 @@ export default function MatchSlot({ match }: { match: MatchWithBet }) {
   const bet = match.user_bet
   const finished = match.status === 'finished'
 
-  const betLabel = bet
-    ? `${bet.predicted_home_score}–${bet.predicted_away_score} · ${bet.combined_multiplier}×`
-    : open ? 'Tap to bet' : '—'
-
   const betColorClass = bet && finished ? resultColor(bet) : bet ? 'text-slate-300' : open ? 'text-green-500' : 'text-slate-600'
+
+  const predictedWinner = bet
+    ? bet.predicted_home_score > bet.predicted_away_score ? homeName
+    : bet.predicted_home_score < bet.predicted_away_score ? awayName
+    : 'Draw'
+    : null
 
   return (
     <Link href={`/bracket/${match.id}`}
@@ -62,7 +64,12 @@ export default function MatchSlot({ match }: { match: MatchWithBet }) {
 
       {/* Bet status */}
       <div className={`text-xs shrink-0 text-right w-24 ${betColorClass}`}>
-        {betLabel}
+        {bet ? (
+          <>
+            <div>{bet.predicted_home_score}–{bet.predicted_away_score} · {bet.combined_multiplier}×</div>
+            <div className="text-[10px] text-slate-400">{predictedWinner}</div>
+          </>
+        ) : open ? 'Tap to bet' : '—'}
         {bet && finished && bet.points_earned !== null && (
           <div className={`font-bold text-xs ${resultColor(bet)}`}>
             +{bet.points_earned} pts
