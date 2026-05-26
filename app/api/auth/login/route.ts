@@ -18,19 +18,22 @@ export async function POST(req: NextRequest) {
 
   const { username, phone } = parsed.data
   const db = createServiceClient()
-  const { data: user } = await db
+  const { data: user, error: dbError } = await db
     .from('users')
     .select('id, username, phone_hash, display_name, is_admin')
     .eq('username', username.toLowerCase().trim())
     .maybeSingle()
 
+  console.log('[login] username lookup:', { username: username.toLowerCase().trim(), found: !!user, dbError })
+
   if (!user) {
-    return Response.json({ error: 'Invalid credentials' }, { status: 401 })
+    return Response.json({ error: 'Invalid credentials', debug: dbError?.message ?? 'user not found' }, { status: 401 })
   }
 
   const valid = await bcrypt.compare(phone.trim(), user.phone_hash)
+  console.log('[login] bcrypt compare:', { valid, phoneLen: phone.trim().length })
   if (!valid) {
-    return Response.json({ error: 'Invalid credentials' }, { status: 401 })
+    return Response.json({ error: 'Invalid credentials', debug: 'wrong phone' }, { status: 401 })
   }
 
   await createSession({
