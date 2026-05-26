@@ -75,7 +75,7 @@ export default function BetModal({ match, existingBet, breakdown }: Props) {
       {/* Match header */}
       <div className="rounded-xl border p-4 text-center"
         style={{ background: 'var(--surface)', borderColor: 'var(--border-col)' }}>
-        <div className="text-xs text-slate-500 mb-3">
+        <div className="text-xs text-slate-500 mb-3" suppressHydrationWarning>
           {stageLabel(match.stage)} · {formatKickoff(match.kickoff_time)}
         </div>
         <div className="flex items-center justify-center gap-4">

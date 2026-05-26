@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { formatKickoff, formatScore, isBettingOpen, resultColor } from '@/lib/utils'
 import type { MatchWithBet } from '@/types'
@@ -52,7 +54,7 @@ export default function MatchSlot({ match }: { match: MatchWithBet }) {
             <div className="text-[10px] text-green-500">LIVE</div>
           </div>
         ) : (
-          <div className="text-xs text-slate-500 leading-tight">
+          <div className="text-xs text-slate-500 leading-tight" suppressHydrationWarning>
             {formatKickoff(match.kickoff_time)}
           </div>
         )}
