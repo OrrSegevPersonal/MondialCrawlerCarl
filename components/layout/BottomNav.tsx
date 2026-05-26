@@ -15,7 +15,7 @@ export default function BottomNav({ isAdmin }: { isAdmin: boolean }) {
   const links = isAdmin ? [...nav, { href: '/admin', label: 'Admin', icon: '⚙️' }] : nav
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-50 border-t flex"
+    <nav className="fixed bottom-0 inset-x-0 z-50 border-t flex sm:hidden"
       style={{ background: 'var(--surface)', borderColor: 'var(--border-col)' }}>
       {links.map((item) => {
         const active = pathname === item.href || pathname.startsWith(item.href + '/')

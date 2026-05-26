@@ -38,7 +38,7 @@ export default async function ProfilePage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
           { label: 'Rank', value: `#${stats.rank}` },
           { label: 'Points', value: stats.total_points.toLocaleString() },
@@ -70,7 +70,7 @@ export default async function ProfilePage() {
               <div key={bet.id} className="flex items-center gap-3 px-4 py-3 border-b last:border-b-0"
                 style={{ borderColor: 'var(--border-col)' }}>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs text-slate-500">{stageLabel((m?.stage as string) ?? '')} · {formatKickoff((m?.kickoff_time as string) ?? '')}</div>
+                  <div className="text-xs text-slate-500" suppressHydrationWarning>{stageLabel((m?.stage as string) ?? '')} · {formatKickoff((m?.kickoff_time as string) ?? '')}</div>
                   <div className="text-sm text-white font-medium truncate">{homeName} vs {awayName}</div>
                   {finished && (
                     <div className="text-xs text-slate-500">
